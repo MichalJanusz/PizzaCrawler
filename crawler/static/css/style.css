@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins&display=swap');
+
+.font{
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+  padding-top: 5rem;
+}
+.starter-page {
+  padding: 3rem 1.5rem;
+  text-align: center;
+}
+
+.my_form{
+    width: 500px;
+    margin: 0 auto;
+}
