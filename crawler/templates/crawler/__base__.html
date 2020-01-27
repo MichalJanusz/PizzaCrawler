@@ -40,7 +40,8 @@
                         <a class="nav-link" href="{% url 'register' %}">Zarejestruj</a>
                     </li>
                 {% else %}
-                    <span class="navbar-text text-light">{{user.username}}</span>
+                    <a href="#" class="navbar-text text-light">{% if user.first_name %}{{ user.first_name }} {{ user.last_name }}
+                    {% else %}{{user.username}}{% endif %}</a>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'logout' %}">Wyloguj</a>
                     </li>

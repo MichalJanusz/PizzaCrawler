@@ -5,7 +5,6 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 
 
-
 class LoginForm(forms.Form):
     username = forms.CharField(max_length=128, label='Login')
     password = forms.CharField(max_length=128, label='Hasło', widget=forms.PasswordInput)
@@ -51,11 +50,10 @@ class RegisterForm(forms.Form):
         label='nr. Mieszkania (opcjonalne)',
         widget=forms.TextInput(attrs={'placeholder': 'np. 137'})
     )
-    phone_number = forms.IntegerField(
+    phone = forms.IntegerField(
         required=False,
         label='nr. Telefonu',
-        widget=forms.TextInput(attrs={'placeholder': '123456789'}),
-        max_value=999999999
+        widget=forms.TextInput(attrs={'placeholder': '123456789', 'max_length': '10'}),
     )
 
     def clean(self):
@@ -64,6 +62,11 @@ class RegisterForm(forms.Form):
         re_password = cleaned_data.get('re_password')
         username = cleaned_data.get('username')
         db_username = User.objects.filter(username=username)
+        email = cleaned_data.get('email')
+        db_email = User.objects.filter(email=email)
+
+        if len(db_email) > 0:
+            raise ValidationError('email zajęty')
 
         if len(db_username) > 0:
             raise ValidationError('login juz istnieje')
@@ -87,7 +90,7 @@ class RegisterForm(forms.Form):
                 Column('last_name'),
                 css_class='form-row'
             ),
-            'phone_number',
+            'phone',
             'city',
             Row(
                 Column('street'),
