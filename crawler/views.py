@@ -14,16 +14,15 @@ class MainView(View):
 
 class LoginView(View):
     title = 'Logowanie'
-    submit = 'Zaloguj'
 
     def get(self, request):
         form = LoginForm()
-        return render(request, 'crawler/form.html', {'form': form, 'submit': self.submit, 'title': self.title})
+        return render(request, 'crawler/form.html', {'form': form, 'title': self.title})
 
     def post(self, request):
         form = LoginForm(request.POST)
         if form.is_valid():
-            username = form.cleaned_data['login']
+            username = form.cleaned_data['username']
             password = form.cleaned_data['password']
             user = authenticate(request, username=username, password=password)
             if user is not None:
@@ -32,9 +31,9 @@ class LoginView(View):
                 return redirect(url)
             else:
                 return render(request, 'crawler/form.html',
-                              {'form': form, 'submit': self.submit, 'title': self.title})
+                              {'form': form, 'title': self.title})
         else:
-            return render(request, 'crawler/form.html', {'form': form, 'submit': self.submit, 'title': self.title})
+            return render(request, 'crawler/form.html', {'form': form, 'title': self.title})
 
 
 class LogoutView(View):
@@ -44,9 +43,8 @@ class LogoutView(View):
 
 
 class RegisterView(View):
-    submit = 'Zarejestruj'
     title = 'Rejestracja'
 
     def get(self, request):
         form = RegisterForm()
-        return render(request, 'crawler/form.html', {'form': form, 'submit': self.submit, 'title': self.title})
+        return render(request, 'crawler/form.html', {'form': form, 'title': self.title})
