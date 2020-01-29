@@ -7,7 +7,7 @@ from django.views import View
 
 from forms import *
 from crawler.models import *
-from scraper import ph_scraper
+from scraper import ph_scraper, dominos_scraper
 
 
 class MainView(View):
@@ -90,7 +90,15 @@ class RegisterView(View):
             return render(request, 'crawler/form.html', {'form': form, 'title': self.title})
 
 
-class JSONView(View):
+class JsonPHView(View):
     def get(self, request):
-        resp = ph_scraper(1)
+        pizza = int(request.GET.get('pizza'))
+        resp = ph_scraper(pizza)
+        return JsonResponse(resp)
+
+
+class JsonDominosView(View):
+    def get(self, request):
+        pizza = int(request.GET.get('pizza'))
+        resp = dominos_scraper(pizza)
         return JsonResponse(resp)
