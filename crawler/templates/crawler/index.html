@@ -1,10 +1,17 @@
 {% extends "crawler/__base__.html" %}
 {% block title %}Main{% endblock %}
+{% load crispy_forms_tags %}
 {% block content %}
 
   <div class="starter-page">
-    <h1>Tutaj będą rzeczy</h1>
-    <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit<br>sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. .</p>
+      <h1>Tutaj pojawiają się rzeczy</h1>
+      {{ form|crispy }}
+      <button class="btn btn-primary" id="ajax_button">porównuj</button>
+      <br/>
+      <div id="comparing_content" class="bg-secondary" style="display: none;">test</div>
+
+
+{#    <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit<br>sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. .</p>#}
   </div>
 
 {% endblock %}

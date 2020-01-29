@@ -12,7 +12,8 @@ from scraper import ph_scraper, dominos_scraper
 
 class MainView(View):
     def get(self, request):
-        return render(request, 'crawler/index.html')
+        form = ComparingForm()
+        return render(request, 'crawler/index.html', {'form': form})
 
 
 class LoginView(View):
@@ -98,7 +99,8 @@ def null_resp(resp):
 
 class JsonPHView(View):
     def get(self, request):
-        pizza = int(request.GET.get('pizza'))
+        pizza = request.GET.get('pizza')
+        pizza = int(pizza) if not len(pizza) == 0 else pizza
         resp = ph_scraper(pizza)
         resp = null_resp(resp)
         return JsonResponse(resp)
@@ -106,7 +108,8 @@ class JsonPHView(View):
 
 class JsonDominosView(View):
     def get(self, request):
-        pizza = int(request.GET.get('pizza'))
+        pizza = request.GET.get('pizza')
+        pizza = int(pizza) if not len(pizza) == 0 else pizza
         resp = dominos_scraper(pizza)
         resp = null_resp(resp)
         return JsonResponse(resp)

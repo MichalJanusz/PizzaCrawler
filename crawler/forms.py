@@ -100,3 +100,22 @@ class RegisterForm(forms.Form):
             ),
             Submit('submit', 'Zarejestruj')
         )
+
+
+PIZZA_CHOICE = (
+    ('', ''),
+    (1, 'Pizza Pepperoni'),
+    (2, 'Pizza Hawajska'),
+    (3, 'Pizza Margherita'),
+    (4, 'Pizza z szynką i pieczarkami'),
+    (5, 'Pizza 4 sery'),
+)
+# Pepperoni = 1
+# Hawajska = 2
+# Margherita = 3
+# Szynka Pieczarki = 4
+# 4 sery = 5
+
+
+class ComparingForm(forms.Form):
+    pizza = forms.ChoiceField(choices=PIZZA_CHOICE, label='Wybierz Pizzę do Porównania')
