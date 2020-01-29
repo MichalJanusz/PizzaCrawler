@@ -15,7 +15,7 @@ executable_path = {"executable_path": r"/Users/michaljanusz/workspace/chromedriv
 options = webdriver.ChromeOptions()
 
 # opcja włączenia maksymalizacji
-options.add_argument("--start-maximized")
+options.add_argument("--window-size=640,480")
 
 # opcja wylaczenia powiadomien
 options.add_argument("--disable-notifications")
@@ -23,7 +23,7 @@ options.add_argument("--disable-notifications")
 
 # tworzę obiekt przeglądarki splinter
 def turn_on_browser():
-    browser = Browser('chrome', **executable_path, headless=False, options=options)
+    browser = Browser('chrome', **executable_path, headless=True, options=options)
     return browser
 
 
