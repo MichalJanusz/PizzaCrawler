@@ -90,10 +90,17 @@ class RegisterView(View):
             return render(request, 'crawler/form.html', {'form': form, 'title': self.title})
 
 
+def null_resp(resp):
+    if resp is None:
+        resp = {'name': 'N/A', 'price': 'N/A'}
+    return resp
+
+
 class JsonPHView(View):
     def get(self, request):
         pizza = int(request.GET.get('pizza'))
         resp = ph_scraper(pizza)
+        resp = null_resp(resp)
         return JsonResponse(resp)
 
 
@@ -101,4 +108,5 @@ class JsonDominosView(View):
     def get(self, request):
         pizza = int(request.GET.get('pizza'))
         resp = dominos_scraper(pizza)
+        resp = null_resp(resp)
         return JsonResponse(resp)
