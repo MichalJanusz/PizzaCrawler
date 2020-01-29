@@ -1,5 +1,5 @@
 from django.contrib.auth import authenticate, login, logout
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 
 # Create your views here.
@@ -7,6 +7,7 @@ from django.views import View
 
 from forms import *
 from crawler.models import *
+from scraper import ph_scraper, dominos_scraper
 
 
 class MainView(View):
@@ -87,3 +88,25 @@ class RegisterView(View):
 
         else:
             return render(request, 'crawler/form.html', {'form': form, 'title': self.title})
+
+
+def null_resp(resp):
+    if resp is None:
+        resp = {'name': 'N/A', 'price': 'N/A'}
+    return resp
+
+
+class JsonPHView(View):
+    def get(self, request):
+        pizza = int(request.GET.get('pizza'))
+        resp = ph_scraper(pizza)
+        resp = null_resp(resp)
+        return JsonResponse(resp)
+
+
+class JsonDominosView(View):
+    def get(self, request):
+        pizza = int(request.GET.get('pizza'))
+        resp = dominos_scraper(pizza)
+        resp = null_resp(resp)
+        return JsonResponse(resp)
