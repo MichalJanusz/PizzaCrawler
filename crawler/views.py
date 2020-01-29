@@ -5,6 +5,7 @@ from django.shortcuts import render, redirect
 # Create your views here.
 from django.views import View
 
+from dominos_form_fill import dominosForm
 from ph_form_fill import phForm
 from forms import *
 from crawler.models import *
@@ -90,7 +91,12 @@ class RegisterView(View):
             return render(request, 'crawler/form.html', {'form': form, 'title': self.title})
 
 
-class OrderView(View):
+class OrderPageView(View):
     def get(self, request):
-        phForm()
-        return HttpResponse()
+        return render(request, 'crawler/order.html')
+
+
+class OrderView(View):
+    def get(self,request):
+        dominosForm()
+        return HttpResponse('dziala')
