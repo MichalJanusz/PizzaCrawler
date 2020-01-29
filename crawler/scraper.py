@@ -34,34 +34,38 @@ def turn_on_browser():
 
 
 def ph_scraper(pizza):
-    browser = turn_on_browser()
-    url = 'https://pizzahut.pl/menu/preview/delivery#category/pizza'
-    browser.visit(url)
+    with turn_on_browser() as browser:
+        url = 'https://pizzahut.pl/menu/preview/delivery#category/pizza'
+        browser.visit(url)
 
-    if pizza == 1:
-        name = 'PEPPERONI'
-    elif pizza == 2:
-        name = 'HAWAJSKA'
-    elif pizza == 3:
-        name = 'MARGHERITA'
-    elif pizza == 4:
-        name = 'CLASSICA'
-    elif pizza == 5:
-        name = 'QUATTRO FORMAGGI'
-    else:
-        return None
+        if pizza == 1:
+            search = 'PEPPERONI'
+        elif pizza == 2:
+            search = 'HAWAJSKA'
+        elif pizza == 3:
+            search = 'MARGHERITA'
+        elif pizza == 4:
+            search = 'CLASSICA'
+        elif pizza == 5:
+            search = 'QUATTRO FORMAGGI'
+        else:
+            return None
 
-    # SZUKAM NAZWY PIZZY
-    test = browser.find_link_by_partial_text(name).find_by_tag('h5')
+        # SZUKAM NAZWY PIZZY
+        test = browser.find_link_by_partial_text(search).find_by_tag('h5')
 
-    # SZUKAM CENY
-    price = browser.find_link_by_partial_text(name).find_by_tag('p').first
+        # FORMATUJE NAZWE
+        name = test.html[0:16].split('\n')[0]
 
-    # FORMATUJE NAZWE
-    name = test.html[0:16].split('\n')[0]
+        # SZUKAM CENY
+        raw_price = browser.find_link_by_partial_text(search).find_by_tag('p').first.html
 
-    # PRZEMYSLEC JESZCZE W JAKI SPOSOB ZWRACAM DANE
-    result = [name, price.html]
+        # FORMATUJE CENE
+        str_price = raw_price[:5].replace(',', '.')
+        price = float(str_price)
+
+        # PRZEMYSLEC JESZCZE W JAKI SPOSOB ZWRACAM DANE
+        result = {'name': name.capitalize(), 'price': price}
     return result
 
 

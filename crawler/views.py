@@ -1,5 +1,5 @@
 from django.contrib.auth import authenticate, login, logout
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 
 # Create your views here.
@@ -7,6 +7,7 @@ from django.views import View
 
 from forms import *
 from crawler.models import *
+from scraper import ph_scraper
 
 
 class MainView(View):
@@ -87,3 +88,9 @@ class RegisterView(View):
 
         else:
             return render(request, 'crawler/form.html', {'form': form, 'title': self.title})
+
+
+class JSONView(View):
+    def get(self, request):
+        resp = ph_scraper(1)
+        return JsonResponse(resp)
