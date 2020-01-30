@@ -7,7 +7,7 @@ from django.views import View
 
 from forms import *
 from crawler.models import *
-from scraper import ph_scraper, dominos_scraper
+from scrapers import ph_scraper, dominos_scraper
 
 
 class MainView(View):

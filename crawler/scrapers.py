@@ -23,7 +23,7 @@ options.add_argument("--disable-notifications")
 
 # tworzę obiekt przeglądarki splinter
 def turn_on_browser():
-    browser = Browser('chrome', **executable_path, headless=False, options=options)
+    browser = Browser('chrome', **executable_path, headless=True, options=options)
     return browser
 
 

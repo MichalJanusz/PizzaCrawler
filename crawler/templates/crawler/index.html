@@ -6,9 +6,10 @@
   <div class="starter-page">
       <h1>Tutaj pojawiają się rzeczy</h1>
       {{ form|crispy }}
-      <button class="btn btn-primary" id="ajax_button">porównuj</button>
+      <button class="btn btn-primary" id="ajax-button">porównuj</button>
       <br/>
-      <div id="comparing_content" class="bg-secondary" style="display: none;">test</div>
+      <br/>
+      <div id="comparing-content" class="bg-secondary col-8 mx-auto row" style="display: none;">{% include 'crawler/comparing_div.html' %}</div>
 
 
 {#    <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit<br>sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. .</p>#}
