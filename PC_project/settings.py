@@ -113,6 +113,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+LOGIN_URL = '/login'
+
 
 try:
     from PC_project.local_settings import DATABASES

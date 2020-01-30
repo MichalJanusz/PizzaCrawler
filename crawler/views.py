@@ -1,12 +1,12 @@
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse, JsonResponse
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 
 # Create your views here.
 from django.views import View
 
-from dominos_form_fill import dominosForm
-from ph_form_fill import phForm
+from dominos_form_fill import first_step_ordering
 from forms import *
 from crawler.models import *
 from scrapers import ph_scraper, dominos_scraper
@@ -117,12 +117,15 @@ class JsonDominosView(View):
         return JsonResponse(resp)
 
 
-class OrderPageView(View):
+class OrderPageView(LoginRequiredMixin, View):
     def get(self, request):
-        return render(request, 'crawler/order.html')
+        form = InfoForm()
+        return render(request, 'crawler/order.html', {'form': form})
 
 
 class OrderView(View):
-    def get(self,request):
-        dominosForm()
-        return HttpResponse('dziala')
+    def get(self, request):
+        info = request.GET.get('additional')
+        payment = request.GET.get('payment')
+        resp = first_step_ordering(user=request.user, additional=info, payment=payment)
+        return JsonResponse(resp)

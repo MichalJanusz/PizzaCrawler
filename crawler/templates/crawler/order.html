@@ -1,5 +1,62 @@
 {% extends 'crawler/__base__.html' %}
 {% block title %}Zamówienie{% endblock %}
+{% load crispy_forms_tags %}
+{% load static %}
 {% block content %}
-    <a href="{% url 'order' %}">zamów</a>
+    <div align="center" class="order_first_step">
+        <h2>Zamów pizzę</h2>
+        <table class="table col-6">
+            <thead>
+                <tr>
+                    <th colspan="3" scope="col">Dane do zamówienia</th>
+                </tr>
+            </thead>
+            <tr>
+                <td>{{ user.first_name }}</td>
+                <td>{{ user.last_name }}</td>
+                <td>{{ user.email }}</td>
+            </tr>
+            <tr>
+                <td>{{ user.userinfo.city }}</td>
+                <td>{{ user.userinfo.street }} {{ user.userinfo.house_nr }}</td>
+                <td>{% if user.userinfo.flat_nr is not None %}
+                {{ user.userinfo.flat_nr }}
+                {% endif %}</td>
+            </tr>
+            <tr>
+                <td colspan="3">{{ user.userinfo.phone }}</td>
+            </tr>
+        </table>
+        <br>
+        <form class="my_form col-12 col-md-8" id="first-step-order" action="{% url 'order' %}" method="get">
+            {{ form|crispy }}
+        </form>
+        <button class="btn btn-secondary" id="start-order">zacznij zamówienie</button>
+    </div>
+    <div align="center" class="col-12" {#style="display: none;"#}>
+        <div class="waiting">
+            <h3 class="waiting">Czekaj, trwa realizowanie twojego zamówienia</h3>
+            <img class="waiting" src="{% static 'img/loader.gif'%}" alt="ładowanie">
+        </div>
+        <div>
+
+            <table>
+                <thead>
+                <tr>
+                    <h3>Twoje zamówienie:</h3>
+                </tr>
+                </thead>
+                <tr>
+                    <td><span id="firstname"></span></td>
+                    <td><span id="lastname"></span></td>
+                    <td><span id="address"></span></td>
+                </tr>
+                <tr>
+                    <td><span id="phone"></span></td>
+                    <td><span id="details"></span></td>
+                    <td><span id="info"></span></td>
+                </tr>
+            </table>
+        </div>
+    </div>
 {% endblock %}

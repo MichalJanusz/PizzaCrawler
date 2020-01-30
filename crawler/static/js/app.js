@@ -1,6 +1,6 @@
 console.log('dziala');
 
-let button = $('#ajax-button');
+let compare_button = $('#ajax-button');
 
 // wyciągam pierwotne wersje elementów
 let ph_div = $('#ph-div');
@@ -13,23 +13,23 @@ let content_div = $('#comparing-content');
 
 
 // kliknięcie przycisku porównywania
-button.click(function(){
+compare_button.click(function(){
 
     // nadanie początkowych wartości divom
     ph_div.html(ph_html);
     domino_div.html(domino_html);
 
     // wyłączenie przycisku na czas trwania ajaxa
-    button.css("pointer-events", "none");
+    compare_button.css("pointer-events", "none");
 
-    // pobieram jakie id wysyła formularz i wypisuje to w konsoli
+    // pobieram jakie id wysyła formularz
     let id = $('#id_pizza').val();
-    console.log(id);
+    // console.log(id);
 
     // ajax wysyła zapytanie do url-a obsługującego skrypt scrapingowy dominos
     $.ajax({
         //w GET wysyłam id pizzy która ma zostać sprawdzona
-    url: "json/dominos?pizza=" + id,
+    url: "/json/dominos?pizza=" + id,
         })
         .done(function(data) {
             // pobieram dane zwrócone z JSONa
@@ -44,7 +44,7 @@ button.click(function(){
 
     // ajax wysyła zapytanie do url-a obsługującego skrypt scrapingowy pizzahut
     $.ajax({
-    url: "json/pizzahut?pizza=" + id,
+    url: "/json/pizzahut?pizza=" + id,
         })
         .done(function(data) {
             // console.log(data);
@@ -56,7 +56,7 @@ button.click(function(){
             $('.site-link').toggle();
 
             // włącza przycisk po skończeniu się ajaxa
-            button.css("pointer-events", "auto");
+            compare_button.css("pointer-events", "auto");
 
         });
 
@@ -70,5 +70,32 @@ button.click(function(){
 
 });
 
+let start_order_button = $('#start-order');
 
+
+start_order_button.click(function() {
+
+    let info = $('#id_additional').val();
+    let payment = $('#id_payment').val();
+
+
+    $.ajax({
+        //w GET wysyłam id pizzy która ma zostać sprawdzona
+    url: `/test/?additional=${info}&payment=${payment}`,
+    })
+        .done(function(data) {
+            let firstname = data.firstname;
+            let lastname = data.lastname;
+            let address = `${data.city} ${data.street} ${data.house_nr} ${data.flat_nr}`;
+            let phone = data.phone;
+            let orderdetails = `${data.order_items} za ${data.order_price}`;
+            let info = data.deliveryinstruction;
+            $('#firstname').html(firstname);
+            $('#lastname').html(lastname);
+            $('#address').html(address);
+            $('#phone').html(phone);
+            $('#details').html(orderdetails);
+            $('#info').html(info);
+        });
+});
 
