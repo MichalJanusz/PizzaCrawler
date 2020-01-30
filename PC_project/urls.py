@@ -24,6 +24,8 @@ urlpatterns = [
     path('login/', LoginView.as_view(), name='login'),
     path('logout/', LogoutView.as_view(), name='logout'),
     path('register/', RegisterView.as_view(), name='register'),
+    path('json/pizzahut/', JsonPHView.as_view()),
+    path('json/dominos/', JsonDominosView.as_view()),
     path('ordering/', OrderPageView.as_view(), name='ordering'),
     path('test/', OrderView.as_view(), name='order'),
 ]

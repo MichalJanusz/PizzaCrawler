@@ -1,5 +1,5 @@
 from django.contrib.auth import authenticate, login, logout
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 
 # Create your views here.
@@ -9,11 +9,13 @@ from dominos_form_fill import dominosForm
 from ph_form_fill import phForm
 from forms import *
 from crawler.models import *
+from scrapers import ph_scraper, dominos_scraper
 
 
 class MainView(View):
     def get(self, request):
-        return render(request, 'crawler/index.html')
+        form = ComparingForm()
+        return render(request, 'crawler/index.html', {'form': form})
 
 
 class LoginView(View):
@@ -89,6 +91,30 @@ class RegisterView(View):
 
         else:
             return render(request, 'crawler/form.html', {'form': form, 'title': self.title})
+
+
+def null_resp(resp):
+    if resp is None:
+        resp = {'name': 'N/A', 'price': 'N/A'}
+    return resp
+
+
+class JsonPHView(View):
+    def get(self, request):
+        pizza = request.GET.get('pizza')
+        pizza = int(pizza) if not len(pizza) == 0 else pizza
+        resp = ph_scraper(pizza)
+        resp = null_resp(resp)
+        return JsonResponse(resp)
+
+
+class JsonDominosView(View):
+    def get(self, request):
+        pizza = request.GET.get('pizza')
+        pizza = int(pizza) if not len(pizza) == 0 else pizza
+        resp = dominos_scraper(pizza)
+        resp = null_resp(resp)
+        return JsonResponse(resp)
 
 
 class OrderPageView(View):
