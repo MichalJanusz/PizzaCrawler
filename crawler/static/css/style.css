@@ -20,3 +20,11 @@ body {
 .asteriskField{
     color: red;
 }
+
+#comparing-content{
+    height: auto;
+}
+
+.comparing-result ul{
+    list-style-type: none;
+}
