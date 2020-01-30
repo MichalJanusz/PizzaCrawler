@@ -118,4 +118,4 @@ PIZZA_CHOICE = (
 
 
 class ComparingForm(forms.Form):
-    pizza = forms.ChoiceField(choices=PIZZA_CHOICE, label='Wybierz Pizzę do Porównania')
+    pizza = forms.ChoiceField(choices=PIZZA_CHOICE, label='Wybierz Pizzę do Porównania', required=False)
