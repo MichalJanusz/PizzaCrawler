@@ -1,9 +1,25 @@
-{% extends 'crawler/__base__.html' %}
+{% extends 'crawler/index.html' %}
 {% block title %}Zamówienie{% endblock %}
 {% load crispy_forms_tags %}
 {% load static %}
 {% block content %}
-    <div align="center" class="order_first_step">
+    <div id="services" class="services-area area-padding">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+          <div class="section-headline services-head text-center">
+              <br>
+            <h2>Usługi</h2>
+          </div>
+        </div>
+      </div>
+      <div class="row text-center">
+        <div class="services-contents">
+          <!-- Start Left services -->
+          <div class=" col-xs-12">
+            <div class="about-move">
+              <div class="services-details">
+                <div align="center" class="order_first_step">
         <h2>Zamów pizzę</h2>
         <table class="table col-6">
             <thead>
@@ -58,5 +74,15 @@
                 </tr>
             </table>
         </div>
+    </div>
+              </div>
+              <!-- end about-details -->
+            </div>
+          </div>
+          <!-- End Left services -->
+          </div>
+          <!-- End Left services -->
+        </div>
+      </div>
     </div>
 {% endblock %}

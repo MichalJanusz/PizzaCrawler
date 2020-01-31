@@ -22,7 +22,7 @@ def first_step_ordering(user, additional, payment):
 
 def dominos_order_process(user, additional, payment):
     # ścieżka do chromedrivera
-    executable_path = {"executable_path": r"/Users/michaljanusz/workspace/chromedriver/chromedriver"}
+    executable_path = {"executable_path": 'crawler/static/chromedriver/chromedriver'}
 
     # opcje przeglądarki
     options = webdriver.ChromeOptions()

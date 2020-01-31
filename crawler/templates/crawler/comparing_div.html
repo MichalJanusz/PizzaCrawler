@@ -1,29 +1,75 @@
+{% extends 'crawler/index.html' %}
 {% load static %}
-
-<div class="mx-auto">
-    <h3>Dominos</h3>
-    <div id="domino-div">
-        <div class="comparing-result">
-            <ul>
-                <li>Nazwa pizzy - <strong id="domino-name"><img src="{% static 'img/loader.gif' %}" alt="ładowanie"></strong></li>
-                <li>Cena: <strong id="domino-price"><img src="{% static 'img/loader.gif' %}" alt="ładowanie"></strong></li>
-                <br>
-                <a target="_blank" class="btn btn-success" href="https://www.dominospizza.pl/pl/">przejdź do strony</a>
-            </ul>
-
+{% load crispy_forms_tags %}
+{% block content %}
+    <div id="services" class="services-area area-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="section-headline services-head text-center">
+                        <br>
+                        <h2>Porównywarka cen</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row text-center">
+                <div class="services-contents">
+                    <!-- Start Left services -->
+                    <div class="col-xs-12">
+                        <div class="about-move">
+                            <div class="services-details">
+                                {{ form|crispy }}
+                                <button class="btn btn-primary" id="ajax-button">porównuj</button>
+                                <br/>
+                                <br/>
+                                <div id="comparing-content" class="bg-secondary col-12 mx-auto row container"
+                                     style="display: none;">
+                                    <div class="col-6 mx-auto">
+                                        <h3>Dominos</h3>
+                                        <div id="domino-div">
+                                            <div class="comparing-result">
+                                                <ul>
+                                                    <li>Nazwa pizzy - <strong id="domino-name"><img
+                                                            src="{% static 'img/loader.gif' %}"
+                                                            alt="ładowanie"></strong></li>
+                                                    <li>Cena: <strong id="domino-price"><img
+                                                            src="{% static 'img/loader.gif' %}"
+                                                            alt="ładowanie"></strong></li>
+                                                    <br>
+                                                    <a target="_blank" class="btn btn-success"
+                                                       href="https://www.dominospizza.pl/pl/">przejdź do strony</a>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 mx-auto">
+                                        <h3>PizzaHut</h3>
+                                        <div id="ph-div">
+                                            <div class="comparing-result">
+                                                <ul>
+                                                    <li>Nazwa pizzy - <strong id="ph-name"><img
+                                                            src="{% static 'img/loader.gif' %}"
+                                                            alt="ładowanie"></strong></li>
+                                                    <li>Cena: <strong id="ph-price"><img
+                                                            src="{% static 'img/loader.gif' %}"
+                                                            alt="ładowanie"></strong></li>
+                                                    <br>
+                                                    <a target="_blank" class="btn btn-success"
+                                                       href="https://pizzahut.pl/">przejdź do strony</a>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end about-details -->
+                        </div>
+                    </div>
+                    <!-- End Left services -->
+                </div>
+                <!-- End Left services -->
+            </div>
         </div>
     </div>
-</div>
-<div class="mx-auto">
-    <h3>PizzaHut</h3>
-    <div id="ph-div">
-        <div class="comparing-result">
-            <ul>
-                <li>Nazwa pizzy - <strong id="ph-name"><img src="{% static 'img/loader.gif' %}" alt="ładowanie"></strong></li>
-                <li>Cena: <strong id="ph-price"><img src="{% static 'img/loader.gif' %}" alt="ładowanie"></strong></li>
-                <br>
-                <a target="_blank" class="btn btn-success" href="https://pizzahut.pl/">przejdź do strony</a>
-            </ul>
-        </div>
-    </div>
-</div>
+{% endblock %}
+

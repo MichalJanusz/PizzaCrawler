@@ -14,8 +14,7 @@ from scrapers import ph_scraper, dominos_scraper
 
 class MainView(View):
     def get(self, request):
-        form = ComparingForm()
-        return render(request, 'crawler/index.html', {'form': form})
+        return render(request, 'crawler/index.html')
 
 
 class LoginView(View):
@@ -129,3 +128,9 @@ class OrderView(View):
         payment = request.GET.get('payment')
         resp = first_step_ordering(user=request.user, additional=info, payment=payment)
         return JsonResponse(resp)
+
+
+class ComparingView(View):
+    def get(self, request):
+        form = ComparingForm()
+        return render(request, 'crawler/comparing_div.html', {'form': form})
